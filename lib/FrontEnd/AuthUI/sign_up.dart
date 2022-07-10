@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:saci/BackEnd/firebase/Auth/sign_up_auth.dart';
+import 'package:saci/BackEnd/firebase/Auth/email_and_pwd_auth.dart';
+import 'package:saci/BackEnd/firebase/Auth/google_auth.dart';
 import 'package:saci/FrontEnd/AuthUI/log_in.dart';
 import 'package:saci/Global_Uses/enum_generation.dart';
 
 import '../../Global_Uses/reg_exp.dart';
 import '../../widgets.dart';
+import '../home_page.dart';
 // import 'package:flutter/cupertino.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -24,6 +26,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _confirmPwd = TextEditingController();
 
   final EmailAndPasswordAuth _emailAndPasswordAuth = EmailAndPasswordAuth();
+  final GoogleAuthentication _googleAuthentication = GoogleAuthentication();
+
   bool _isLoading = false;
 
   @override
@@ -33,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
         body: LoadingOverlay(
           isLoading: this._isLoading,
+          color: Colors.blue,
           child: Container(
             child: ListView(
               shrinkWrap: true,
@@ -86,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                socialMediaIntegrationButtons(),
+                signUpSocialMediaIntegrationButtons(),
                 switchAnotherAuthScreen(context, "Already have an account?", "Log-In"),
               ],
             ),
@@ -131,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             }
             SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-            final EmailSignUpResults response = await this._emailAndPasswordAuth.signUpAuth(email: _email.text, pwd: this._pwd.text);
+            final EmailSignUpResults response = await this._emailAndPasswordAuth.signUpAuth(email: this._email.text, pwd: this._pwd.text);
             if(response == EmailSignUpResults.SignUpCompleted){
               Navigator.push(context, MaterialPageRoute(builder: (_) => LogInScreen()));
             }else{
@@ -153,6 +158,61 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  Widget signUpSocialMediaIntegrationButtons() {
+    return Container(
+      width: double.maxFinite,
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          GestureDetector(
+              onTap: () async {
+                print("Google Pressed.");
+                if(mounted){
+                  setState((){
+                    this._isLoading = true;
+                  });
+                }
+
+                final GoogleSignInResults _googleSignInResults = await this._googleAuthentication.signInWithGoogle();
+
+                String msg = '';
+                if(_googleSignInResults == GoogleSignInResults.SignInCompleted){
+                  msg = 'Sign In completed';
+                } else if(_googleSignInResults == GoogleSignInResults.SignInNotCompleted){
+                  msg = 'Sign In not completed';
+                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignIn){
+                  msg = 'Already Sign In';
+                } else {
+                  msg = 'Unexpected Error happened';
+                }
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+
+                if(_googleSignInResults == GoogleSignInResults.SignInCompleted){
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomePage()),
+                          (route) => false);
+                }
+
+                if(mounted){
+                  setState((){
+                    this._isLoading = false;
+                  });
+                }
+
+              },
+              child: Image.asset('assets/images/google.png', width: 64.0,)),
+          GestureDetector(
+              onTap: (){
+                print("Facebook Pressed.");
+              },
+              child: Image.asset('assets/images/fbook.png', width: 64.0,)),
+        ],
+      ),
+    );
+  }
 
 
 }

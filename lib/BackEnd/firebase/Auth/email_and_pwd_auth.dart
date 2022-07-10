@@ -7,7 +7,7 @@ class EmailAndPasswordAuth{
     try{
       final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pwd);
       if(userCredential.user!.email != null){
-        userCredential.user!.sendEmailVerification();
+        await userCredential.user!.sendEmailVerification();
         return EmailSignUpResults.SignUpCompleted;
       }
       return EmailSignUpResults.SignUpNotCompleted;
@@ -21,7 +21,6 @@ class EmailAndPasswordAuth{
     try{
       final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pwd);
       if(userCredential.user!.emailVerified){
-        userCredential.user!.sendEmailVerification();
         return EmailSignInResults.SignInCompleted;
       }else{
         final logOutResponse = await logOut();

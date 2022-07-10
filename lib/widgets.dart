@@ -54,27 +54,27 @@ Widget commonTextFormField({required String hintText, required String? Function(
 //   );
 // }
 
-Widget socialMediaIntegrationButtons() {
-  return Container(
-    width: double.maxFinite,
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        GestureDetector(
-            onTap: (){
-              print("Google Pressed.");
-            },
-            child: Image.asset('assets/images/google.png', width: 64.0,)),
-        GestureDetector(
-            onTap: (){
-              print("Facebook Pressed.");
-            },
-            child: Image.asset('assets/images/fbook.png', width: 64.0,)),
-      ],
-    ),
-  );
-}
+// Widget socialMediaIntegrationButtons() {
+//   return Container(
+//     width: double.maxFinite,
+//     padding: const EdgeInsets.all(20.0),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       children: [
+//         GestureDetector(
+//             onTap: (){
+//               print("Google Pressed.");
+//             },
+//             child: Image.asset('assets/images/google.png', width: 64.0,)),
+//         GestureDetector(
+//             onTap: (){
+//               print("Facebook Pressed.");
+//             },
+//             child: Image.asset('assets/images/fbook.png', width: 64.0,)),
+//       ],
+//     ),
+//   );
+// }
 
 Widget switchAnotherAuthScreen(BuildContext context, String buttonNameFirst, String buttonNameLast){
   return ElevatedButton(
