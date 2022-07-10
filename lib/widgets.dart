@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'FrontEnd/AuthUI/log_in.dart';
 import 'FrontEnd/AuthUI/sign_up.dart';
 
-Widget commonTextFormField({required String hintText}){
+Widget commonTextFormField({required String hintText, required String? Function(String?)? validator, required TextEditingController textEditingController}){
   return Container(
     padding: const EdgeInsets.only(right: 32.0, left: 32.0, bottom: 24.0),
     child: TextFormField(
+      validator: validator,
+      controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey),
@@ -22,35 +24,35 @@ Widget commonTextFormField({required String hintText}){
   );
 }
 
-Widget authButton(BuildContext context, String buttonName) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 20.0),
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          minimumSize: Size(
-            MediaQuery.of(context).size.width - 60, 30.0,
-          ),
-          elevation: 5.0,
-          primary: const Color.fromRGBO(57, 60, 88, 1),
-          padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 7.0, bottom: 7.0),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))
-          )
-      ),
-      child: Text(
-        buttonName,
-        style: const TextStyle(
-          fontSize: 25.0,
-          letterSpacing: 1.0,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      onPressed: () async{
-
-      },
-    ),
-  );
-}
+// Widget authButton(BuildContext context, String buttonName) {
+//   return Padding(
+//     padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 20.0),
+//     child: ElevatedButton(
+//       style: ElevatedButton.styleFrom(
+//           minimumSize: Size(
+//             MediaQuery.of(context).size.width - 60, 30.0,
+//           ),
+//           elevation: 5.0,
+//           primary: const Color.fromRGBO(57, 60, 88, 1),
+//           padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 7.0, bottom: 7.0),
+//           shape: const RoundedRectangleBorder(
+//               borderRadius: BorderRadius.all(Radius.circular(10.0))
+//           )
+//       ),
+//       child: Text(
+//         buttonName,
+//         style: const TextStyle(
+//           fontSize: 25.0,
+//           letterSpacing: 1.0,
+//           fontWeight: FontWeight.w400,
+//         ),
+//       ),
+//       onPressed: () async{
+//
+//       },
+//     ),
+//   );
+// }
 
 Widget socialMediaIntegrationButtons() {
   return Container(

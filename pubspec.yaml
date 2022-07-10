@@ -40,6 +40,7 @@ dev_dependencies:
     sdk: flutter
   firebase_auth:
   firebase_core:
+  loading_overlay: ^0.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
