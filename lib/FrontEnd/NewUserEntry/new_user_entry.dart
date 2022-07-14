@@ -6,7 +6,8 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/new_user_entry.dart';
 import 'package:saci/widgets.dart';
 
-import '../home_page.dart';
+import '../MainScreen/home_page.dart';
+import '../MainScreen/main_screen.dart';
 
 class TakePrimaryUserData extends StatefulWidget {
   const TakePrimaryUserData({Key? key}) : super(key: key);
@@ -137,7 +138,7 @@ class _TakePrimaryUserDataState extends State<TakePrimaryUserData> {
 
               if(_userEntryRespose){
                 msg = 'User data entry successful';
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomePage()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MainScreen()), (route) => false);
               } else {
                 msg = 'User data entry unsuccessful';
               }

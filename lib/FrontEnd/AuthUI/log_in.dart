@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:saci/BackEnd/firebase/Auth/email_and_pwd_auth.dart';
 import 'package:saci/BackEnd/firebase/Auth/fb_auth.dart';
 import 'package:saci/BackEnd/firebase/Auth/google_auth.dart';
-import 'package:saci/FrontEnd/home_page.dart';
+import 'package:saci/FrontEnd/MainScreen/home_page.dart';
 import 'package:saci/Global_Uses/enum_generation.dart';
 import 'package:saci/Global_Uses/reg_exp.dart';
 import 'package:loading_overlay/loading_overlay.dart';

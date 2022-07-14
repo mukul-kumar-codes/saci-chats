@@ -10,7 +10,7 @@ import 'package:saci/Global_Uses/enum_generation.dart';
 import '../../Global_Uses/reg_exp.dart';
 import '../../widgets.dart';
 import '../NewUserEntry/new_user_entry.dart';
-import '../home_page.dart';
+import '../MainScreen/home_page.dart';
 // import 'package:flutter/cupertino.dart';
 
 class SignUpScreen extends StatefulWidget {
