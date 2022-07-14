@@ -17,3 +17,10 @@ enum GoogleSignInResults{
   UnexpectedError,
   AlreadySignIn,
 }
+
+enum FBSignInResults{
+  SignInCompleted,
+  SignInNotCompleted,
+  AlreadySignedIn,
+  UnExpectedError,
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'package:saci/BackEnd/firebase/Auth/email_and_pwd_auth.dart';
+import 'package:saci/BackEnd/firebase/Auth/fb_auth.dart';
 import 'package:saci/BackEnd/firebase/Auth/google_auth.dart';
 import 'package:saci/FrontEnd/home_page.dart';
 import 'package:saci/Global_Uses/enum_generation.dart';
@@ -9,6 +10,7 @@ import 'package:saci/Global_Uses/reg_exp.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../widgets.dart';
+import '../NewUserEntry/new_user_entry.dart';
 // import 'package:flutter/cupertino.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -27,6 +29,8 @@ class _LogInScreenState extends State<LogInScreen> {
 
   final EmailAndPasswordAuth _emailAndPasswordAuth = EmailAndPasswordAuth();
   final GoogleAuthentication _googleAuthentication = GoogleAuthentication();
+
+  final FacebookAuthentication _facebookAuthentication = FacebookAuthentication();
 
   bool _isLoading = false;
 
@@ -126,11 +130,15 @@ class _LogInScreenState extends State<LogInScreen> {
               });
             }
 
-            final EmailSignInResults emailSignInResults = await _emailAndPasswordAuth.signInWithEmailAndPassword(email: this._email.text, pwd: this._pwd.text);
+            final EmailSignInResults emailSignInResults =
+            await _emailAndPasswordAuth.signInWithEmailAndPassword(
+                email: this._email.text, pwd: this._pwd.text);
 
             String msg = '';
             if(emailSignInResults == EmailSignInResults.SignInCompleted){
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomePage()), (route) => false);
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
+                      (route) => false);
             } else if(emailSignInResults == EmailSignInResults.EmailNotVerified){
               msg = "Email not verified.\nPlease verify your email and then log in.";
             }else if(emailSignInResults == EmailSignInResults.EmailOrPasswordInvalid){
@@ -192,7 +200,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 if(_googleSignInResults == GoogleSignInResults.SignInCompleted){
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (_) => HomePage()),
+                      MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
                           (route) => false);
                 }
 
@@ -205,8 +213,42 @@ class _LogInScreenState extends State<LogInScreen> {
               },
               child: Image.asset('assets/images/google.png', width: 64.0,)),
           GestureDetector(
-              onTap: (){
+              onTap: () async{
                 print("Facebook Pressed.");
+
+                if(mounted){
+                  setState((){
+                    this._isLoading = true;
+                  });
+                }
+
+                final FBSignInResults _fbSignInResults = await this._facebookAuthentication.facebookLogIn();
+
+                String msg = '';
+                if(_fbSignInResults == FBSignInResults.SignInCompleted){
+                  msg = 'Sign In completed';
+                } else if(_fbSignInResults == FBSignInResults.SignInNotCompleted){
+                  msg = 'Sign In not completed';
+                } else if(_fbSignInResults == FBSignInResults.AlreadySignedIn){
+                  msg = 'Already Facebook SignIn';
+                } else {
+                  msg = 'Unexpected Error happened';
+                }
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+
+                if(_fbSignInResults == FBSignInResults.SignInCompleted){
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
+                          (route) => false);
+                }
+
+                if(mounted){
+                  setState((){
+                    this._isLoading = false;
+                  });
+                }
               },
               child: Image.asset('assets/images/fbook.png', width: 64.0,)),
         ],

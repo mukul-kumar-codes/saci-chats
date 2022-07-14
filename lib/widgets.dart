@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'FrontEnd/AuthUI/log_in.dart';
 import 'FrontEnd/AuthUI/sign_up.dart';
 
-Widget commonTextFormField({required String hintText, required String? Function(String?)? validator, required TextEditingController textEditingController}){
+Widget commonTextFormField({required String hintText, required String? Function(String?)? validator,
+  required TextEditingController textEditingController, double bottomPadding = 50.0}){
   return Container(
-    padding: const EdgeInsets.only(right: 32.0, left: 32.0, bottom: 24.0),
+    padding: EdgeInsets.only(right: 32.0, left: 32.0, bottom: bottomPadding),
     child: TextFormField(
       validator: validator,
       controller: textEditingController,

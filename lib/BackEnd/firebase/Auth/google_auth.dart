@@ -4,22 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../Global_Uses/enum_generation.dart';
 
 class GoogleAuthentication{
-
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<GoogleSignInResults> signInWithGoogle() async {
+  Future<GoogleSignInResults> signInWithGoogle() async{
     try{
-      if(!await this._googleSignIn.isSignedIn()){
+      if(await this._googleSignIn.isSignedIn()){
         return GoogleSignInResults.AlreadySignIn;
       } else {
         final GoogleSignInAccount? _googleSignInAccount = await this._googleSignIn.signIn();
         if(_googleSignInAccount == null){
-          print('Google Sign is not completed');
+
           return GoogleSignInResults.SignInNotCompleted;
         } else {
           final GoogleSignInAuthentication _googleSignInAuth = await _googleSignInAccount.authentication;
 
-          final OAuthCredential _oAuthCredential = GoogleAuthProvider.credential(
+          final OAuthCredential _oAuthCredential = await GoogleAuthProvider.credential(
             accessToken: _googleSignInAuth.accessToken,
             idToken: _googleSignInAuth.idToken,
           );
@@ -27,10 +26,10 @@ class GoogleAuthentication{
           final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(_oAuthCredential);
 
           if(userCredential.user!.email != null){
-            print('Google Sin In completed');
+            print('Google Sign In completed');
             return GoogleSignInResults.SignInCompleted;
           } else {
-            print('Google Sign In problems');
+            print('Google Sign In problem');
             return GoogleSignInResults.UnexpectedError;
           }
         }
@@ -43,15 +42,14 @@ class GoogleAuthentication{
 
   Future<bool> logOut() async{
     try{
-      print('Google log out');
+      print('Google Log Out');
 
       await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
       await FirebaseAuth.instance.signOut();
-
       return true;
-    }catch(e){
-      print('Error in google logout');
+    } catch(e){
+      print('Error in Google Log Out ${e.toString()}');
       return false;
     }
   }

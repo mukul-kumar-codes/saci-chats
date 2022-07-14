@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "96409870974",
+    "project_id": "saci-chat",
+    "storage_bucket": "saci-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96409870974:android:3e90a5ab03fab5d8866e2f",
+        "android_client_info": {
+          "package_name": "tech.saci.saci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96409870974-nqt6ebo00bnk1rcrpgmbj76ai1u1hsq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.saci.saci",
+            "certificate_hash": "c11c2790f3e3707526d05798cdf37eaf3fd7458b"
+          }
+        },
+        {
+          "client_id": "96409870974-sng3u48h00dto7gqepsr7mleqbfqkr2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMCy13H6DQYVlvpG8AdfnE-kqDra8w0IM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96409870974-sng3u48h00dto7gqepsr7mleqbfqkr2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

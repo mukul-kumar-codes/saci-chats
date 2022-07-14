@@ -40,8 +40,14 @@ dev_dependencies:
     sdk: flutter
   firebase_auth:
   firebase_core:
-  loading_overlay: ^0.3.0
   google_sign_in: ^5.4.0
+  flutter_facebook_auth: ^3.5.7
+  cloud_firestore: ^3.3.0
+  intl: ^0.17.0
+  firebase_messaging: ^12.0.0
+
+
+  loading_overlay: ^0.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
