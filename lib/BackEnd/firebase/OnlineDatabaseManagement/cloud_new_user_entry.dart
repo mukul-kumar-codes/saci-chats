@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import '../../sqlite_management/local_database_management.dart';
+
 
 class CloudStoreDataManagement{
 
@@ -69,4 +71,25 @@ class CloudStoreDataManagement{
       return false;
     }
   }
+
+  Future<Map<String, dynamic>> getTokenFromCloudStore({required String userMail}) async{
+    try{
+      final DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await FirebaseFirestore.instance.doc('${this._collectionName}/$userMail').get();
+
+      print('DocumentSnapshot is: ${documentSnapshot.data()}');
+
+      final Map<String, dynamic> importantData = Map<String, dynamic>();
+
+      importantData["token"] = documentSnapshot.data()!["token"];
+      importantData["date"] = documentSnapshot.data()!["creation_date"];
+      importantData["time"] = documentSnapshot.data()!["creation_time"];
+
+      return importantData;
+
+    } catch (e){
+      print('Error in get Token from Cloud Store: ${e.toString()}');
+      return {};
+    }
+  }
+
 }

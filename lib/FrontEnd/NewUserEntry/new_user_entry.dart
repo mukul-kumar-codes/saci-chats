@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/new_user_entry.dart';
+import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/cloud_new_user_entry.dart';
+import 'package:saci/BackEnd/sqlite_management/local_database_management.dart';
 import 'package:saci/widgets.dart';
 
 import '../MainScreen/home_page.dart';
@@ -25,7 +26,10 @@ class _TakePrimaryUserDataState extends State<TakePrimaryUserData> {
   final TextEditingController _userName = TextEditingController();
   final TextEditingController _userAbout = TextEditingController();
 
-  final CloudStoreDataManagement _cloudStoreDataManagement = CloudStoreDataManagement();
+  final CloudStoreDataManagement _cloudStoreDataManagement =
+    CloudStoreDataManagement();
+
+  final LocalDatabase _localDatabase = LocalDatabase();
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +142,23 @@ class _TakePrimaryUserDataState extends State<TakePrimaryUserData> {
 
               if(_userEntryRespose){
                 msg = 'User data entry successful';
+
+                /// Calling Local Databases Methods to Initialize Local Database with required method
+
+                await this._localDatabase.createTableToStoreImportantData();
+
+                final Map<String, dynamic> _importantFetchData = await _cloudStoreDataManagement.getTokenFromCloudStore(userMail: FirebaseAuth.instance.currentUser!.email.toString());
+
+                await this._localDatabase.insertOrUpdateDataForThisAccount(
+                    userName: this._userName.text,
+                    userMail: FirebaseAuth.instance.currentUser!.email.toString(),
+                    userToken: _importantFetchData["token"],
+                    userAbout: this._userAbout.text,
+                    userAccCreationDate: _importantFetchData["date"],
+                    userAccCreationTime: _importantFetchData["time"]);
+
+                await _localDatabase.createTableForUserActivity(tableName: this._userName.text);
+
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MainScreen()), (route) => false);
               } else {
                 msg = 'User data entry unsuccessful';

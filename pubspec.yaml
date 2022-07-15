@@ -48,6 +48,7 @@ dev_dependencies:
   animations: ^2.0.3
   circle_list: ^1.0.5
   fluttericon: ^2.0.0
+  sqflite: ^2.0.3
 
 
   loading_overlay: ^0.3.0
