@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/cloud_new_user_entry.dart';
+import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/cloud_data_management.dart';
 import 'package:saci/BackEnd/sqlite_management/local_database_management.dart';
 import 'package:saci/widgets.dart';
 

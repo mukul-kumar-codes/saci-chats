@@ -189,7 +189,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   msg = 'Sign In completed';
                 } else if(_googleSignInResults == GoogleSignInResults.SignInNotCompleted){
                   msg = 'Sign In not completed';
-                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignIn){
+                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignedIn){
                   msg = 'Already Sign In';
                 } else {
                   msg = 'Unexpected Error happened';

@@ -9,7 +9,7 @@ class GoogleAuthentication{
   Future<GoogleSignInResults> signInWithGoogle() async{
     try{
       if(await this._googleSignIn.isSignedIn()){
-        return GoogleSignInResults.AlreadySignIn;
+        return GoogleSignInResults.AlreadySignedIn;
       } else {
         final GoogleSignInAccount? _googleSignInAccount = await this._googleSignIn.signIn();
         if(_googleSignInAccount == null){

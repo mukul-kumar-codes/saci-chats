@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/cloud_new_user_entry.dart';
+import 'package:saci/BackEnd/firebase/OnlineDatabaseManagement/cloud_data_management.dart';
 import 'package:saci/FrontEnd/AuthUI/log_in.dart';
 import 'package:saci/FrontEnd/MainScreen/home_page.dart';
 import 'package:saci/FrontEnd/MainScreen/main_screen.dart';

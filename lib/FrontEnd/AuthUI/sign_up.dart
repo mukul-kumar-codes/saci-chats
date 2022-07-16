@@ -185,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   msg = 'Sign In completed';
                 } else if(_googleSignInResults == GoogleSignInResults.SignInNotCompleted){
                   msg = 'Sign In not completed';
-                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignIn){
+                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignedIn){
                   msg = 'Already Google SignIn';
                 } else {
                   msg = 'Unexpected Error happened';

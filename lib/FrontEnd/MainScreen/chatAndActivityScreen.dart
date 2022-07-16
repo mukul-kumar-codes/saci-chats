@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:saci/FrontEnd/Services/search_screen.dart';
 
 class ChatAndActivityScreen extends StatefulWidget {
   const ChatAndActivityScreen({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _ChatAndActivityScreenState extends State<ChatAndActivityScreen> {
     return SafeArea(
         child: Scaffold(
           backgroundColor: Color.fromRGBO(34, 48, 60, 1),
+          floatingActionButton: _externalConnectionManagement(),
           body: LoadingOverlay(
               isLoading: this._isLoading,
               color: const Color.fromRGBO(0, 0, 0, 0.5),
@@ -355,6 +357,36 @@ class _ChatAndActivityScreenState extends State<ChatAndActivityScreen> {
             ),
           ),
         ));
+  }
+
+  Widget _externalConnectionManagement() {
+    return OpenContainer(
+      closedColor: const Color.fromRGBO(20, 200, 50, 1),
+      middleColor: const Color.fromRGBO(34, 48, 60, 1),
+      openColor: const Color.fromRGBO(34, 48, 60, 1),
+      closedShape: CircleBorder(),
+      closedElevation: 15.0,
+      transitionDuration: const Duration(
+        milliseconds: 500,
+      ),
+      transitionType: ContainerTransitionType.fadeThrough,
+      openBuilder: (_, __) {
+        return SearchScreen();
+      },
+      closedBuilder: (_, __) {
+        return Container(
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 37.0,
+          ),
+        );
+      },
+    );
   }
 
 }
