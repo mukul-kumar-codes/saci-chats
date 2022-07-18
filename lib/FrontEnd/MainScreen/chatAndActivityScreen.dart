@@ -6,6 +6,8 @@ import 'package:animations/animations.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:saci/FrontEnd/Services/search_screen.dart';
 
+import '../Services/ChatManagement/chat_screen.dart';
+
 class ChatAndActivityScreen extends StatefulWidget {
   const ChatAndActivityScreen({Key? key}) : super(key: key);
 
@@ -294,7 +296,7 @@ class _ChatAndActivityScreenState extends State<ChatAndActivityScreen> {
                   transitionDuration: Duration(milliseconds: 500),
                   transitionType: ContainerTransitionType.fadeThrough,
                   openBuilder: (context, openWidget) {
-                    return Center();
+                    return ChatScreen(userName: _userName,);
                   },
                   closedBuilder: (context, closeWidget) {
                     return Container(
