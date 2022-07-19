@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttericon/entypo_icons.dart';
 
-// import 'package:generation/BackendAndDatabaseManager/global_controller/different_types.dart';
-// import 'package:generation/FrontEnd/MenuScreen/Settings/chat_wallpaper_maker.dart';
-// import 'package:generation/FrontEnd/MenuScreen/Settings/chat_history_maker_and_media_view.dart';
-// import 'package:generation/FrontEnd/MenuScreen/Settings/settings_notification_screen.dart';
-// import 'package:generation/FrontEnd/MenuScreen/Settings/phone_call_config.dart';
 
 class SettingsWindow extends StatefulWidget {
   @override
@@ -55,7 +50,7 @@ class _SettingsWindowState extends State<SettingsWindow> {
             height: 15.0,
           ),
           everySettingsItem(
-              mainText: 'saci chats Direct Calling Setting',
+              mainText: 'Generation Direct Calling Setting',
               icon: Icons.call,
               smallDescription: 'Add Phone Number to Receive Call'),
           SizedBox(
@@ -72,12 +67,12 @@ class _SettingsWindowState extends State<SettingsWindow> {
               mainText: 'Storage',
               icon: Icons.storage,
               smallDescription: 'Storage Usage'),
-          const SizedBox(
+          SizedBox(
             height: 30.0,
           ),
-          const Center(
+          Center(
             child: Text(
-              'Copyright © 2021 @ saci chats',
+              'Copyright © 2021 @ Generation',
               style: TextStyle(
                 color: Colors.lightBlue,
                 fontSize: 16.0,

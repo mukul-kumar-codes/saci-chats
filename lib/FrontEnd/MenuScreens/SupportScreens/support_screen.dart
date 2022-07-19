@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'mail_content_maker.dart';
 
-//import 'package:generation/FrontEnd/MenuScreen/Support/mail_content_maker.dart';
 
 class SupportMenuMaker extends StatefulWidget {
   const SupportMenuMaker({Key? key}) : super(key: key);

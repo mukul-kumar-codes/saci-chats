@@ -1,11 +1,9 @@
 import 'dart:async';
 
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -68,14 +66,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: const Color.fromRGBO(34, 48, 60, 1),
         body: ListView(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 20.0,
             ),
             firstPortion(context),
-            const SizedBox(
+            SizedBox(
               height: 50.0,
             ),
-            otherInformation('About', 'Welcome to SACI Chats App'),
+            otherInformation('About', 'Welcome to Generation'),
             otherInformation('Join Date', "07-08-2021"),
             otherInformation('Join Time', "6:23 AM"),
             _deleteButton(context),
@@ -91,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
+          SizedBox(
             width: 10.0,
           ),
           Align(
@@ -104,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   middleColor: const Color.fromRGBO(34, 48, 60, 1),
                   closedShape: CircleBorder(),
                   closedElevation: 0.0,
-                  transitionDuration: const Duration(
+                  transitionDuration: Duration(
                     milliseconds: 500,
                   ),
                   transitionType: ContainerTransitionType.fadeThrough,
@@ -113,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                   closedBuilder: (context, closeWidget) {
                     return CircleAvatar(
-                      backgroundImage: const ExactAssetImage('assets/images/google.png'),
+                      backgroundImage: ExactAssetImage('assets/images/google.png'),
                       backgroundColor:  const Color.fromRGBO(34, 48, 60, 1),
                       radius: MediaQuery.of(context).orientation ==
                           Orientation.portrait
@@ -183,11 +181,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                'Saci Chats Member',
+                'Samarpan Dasgupta',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontFamily: 'Lora',
@@ -426,7 +424,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         }
                         print("Deletion Event");
 
-                        // await deleteMyGenerationAccount();
+                        /// await deleteMyGenerationAccount();
                       },
                     ),
                   ],
