@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/services.dart';
-import 'package:saci/BackEnd/firebase/Auth/email_and_pwd_auth.dart';
-import 'package:saci/BackEnd/firebase/Auth/fb_auth.dart';
-import 'package:saci/BackEnd/firebase/Auth/google_auth.dart';
-import 'package:saci/FrontEnd/MainScreen/home_page.dart';
-import 'package:saci/Global_Uses/enum_generation.dart';
-import 'package:saci/Global_Uses/reg_exp.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../widgets.dart';
+import '../../BackEnd/firebase/Auth/email_and_pwd_auth.dart';
+import '../../BackEnd/firebase/Auth/fb_auth.dart';
+import '../../BackEnd/firebase/Auth/google_auth.dart';
+import '../../Global_Uses/enum_generation.dart';
+import '../../Global_Uses/reg_exp.dart';
 import '../NewUserEntry/new_user_entry.dart';
-// import 'package:flutter/cupertino.dart';
+import 'common_auth_methods.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  _LogInScreenState createState() => _LogInScreenState();
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-
   final GlobalKey<FormState> _logInKey = GlobalKey<FormState>();
 
   final TextEditingController _email = TextEditingController();
@@ -29,7 +26,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
   final EmailAndPasswordAuth _emailAndPasswordAuth = EmailAndPasswordAuth();
   final GoogleAuthentication _googleAuthentication = GoogleAuthentication();
-
   final FacebookAuthentication _facebookAuthentication = FacebookAuthentication();
 
   bool _isLoading = false;
@@ -38,56 +34,61 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        backgroundColor: const Color.fromRGBO(34, 48, 60, 1),
         body: LoadingOverlay(
           isLoading: this._isLoading,
-          color: Colors.blue,
+          color: Colors.black54,
           child: Container(
             child: ListView(
               shrinkWrap: true,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height/10.0,
+                  height: 50.0,
                 ),
-                const Center(
-                    child: Text('Log-in', style: TextStyle(fontSize: 32.0, color: Colors.black),)
+                Center(
+                  child: Text(
+                    'Log-In',
+                    style: TextStyle(fontSize: 28.0, color: Colors.white),
+                  ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height/2.5,
+                  height: MediaQuery.of(context).size.height / 2,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(top: 24.0, bottom: 10.0,),
+                  padding: EdgeInsets.only(top: 60.0, bottom: 10.0),
                   child: Form(
                     key: this._logInKey,
                     child: ListView(
                       children: [
-                        commonTextFormField(hintText: 'Email', validator: (String? inputVal) {
-                          if(!emailRegex.hasMatch(inputVal.toString())){
-                            return "Email format is not matched.";
-                          }
-                          return null;
-                        }, textEditingController: this._email),
-                        commonTextFormField(hintText: "Password", validator: (String? inputVal) {
-                          if(inputVal!.length < 6){
-                            return "Password must be at least six characters.";
-                          }
-                          return null;
-                        }, textEditingController: this._pwd),
+                        commonTextFormField(
+                            hintText: 'Email',
+                            validator: (String? inputVal) {
+                              if (!emailRegex.hasMatch(inputVal.toString()))
+                                return 'Email format is not matching';
+                              return null;
+                            },
+                            textEditingController: this._email),
+                        commonTextFormField(
+                            hintText: 'Password',
+                            validator: (String? inputVal) {
+                              if (inputVal!.length < 6)
+                                return 'Password must be at least 6 characters';
+                              return null;
+                            },
+                            textEditingController: this._pwd),
                         logInAuthButton(context, 'Log-In'),
                       ],
                     ),
                   ),
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    "Or continue with",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20.0,
-                    ),
+                    'Or Continue With',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                 ),
                 logInSocialMediaIntegrationButtons(),
-                switchAnotherAuthScreen(context,"Don't have an account?","Sign-Up"),
+                switchAnotherAuthScreen(
+                    context, "Don't Have an Account? ", 'Sign-Up'),
               ],
             ),
           ),
@@ -98,34 +99,36 @@ class _LogInScreenState extends State<LogInScreen> {
 
   Widget logInAuthButton(BuildContext context, String buttonName) {
     return Padding(
-      padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 20.0),
+      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            minimumSize: Size(
-              MediaQuery.of(context).size.width - 60, 30.0,
-            ),
+            minimumSize: Size(MediaQuery.of(context).size.width - 60, 30.0),
             elevation: 5.0,
-            primary: const Color.fromRGBO(57, 60, 88, 1),
-            padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 7.0, bottom: 7.0),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))
-            )
-        ),
+            primary: Color.fromRGBO(57, 60, 80, 1),
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 7.0,
+              bottom: 7.0,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            )),
         child: Text(
           buttonName,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 25.0,
             letterSpacing: 1.0,
             fontWeight: FontWeight.w400,
           ),
         ),
-        onPressed: () async{
-          if(this._logInKey.currentState!.validate()){
-            print("Validated");
+        onPressed: () async {
+          if (this._logInKey.currentState!.validate()) {
+            print('Validated');
             SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-            if(mounted){
-              setState((){
+            if (mounted) {
+              setState(() {
                 this._isLoading = true;
               });
             }
@@ -135,31 +138,32 @@ class _LogInScreenState extends State<LogInScreen> {
                 email: this._email.text, pwd: this._pwd.text);
 
             String msg = '';
-            if(emailSignInResults == EmailSignInResults.SignInCompleted){
-              Navigator.pushAndRemoveUntil(context,
+            if (emailSignInResults == EmailSignInResults.SignInCompleted)
+              Navigator.pushAndRemoveUntil(
+                  context,
                   MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
                       (route) => false);
-            } else if(emailSignInResults == EmailSignInResults.EmailNotVerified){
-              msg = "Email not verified.\nPlease verify your email and then log in.";
-            }else if(emailSignInResults == EmailSignInResults.EmailOrPasswordInvalid){
-              msg = "Email and password invalid";
-            } else {
-              msg = "Sign In not completed";
-            }
+            else if (emailSignInResults ==
+                EmailSignInResults.EmailNotVerified) {
+              msg =
+              'Email not Verified.\nPlease Verify your email and then Log In';
+            } else if (emailSignInResults ==
+                EmailSignInResults.EmailOrPasswordInvalid)
+              msg = 'Email And Password Invalid';
+            else
+              msg = 'Sign In Not Completed';
 
-            if(msg != ''){
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-            }
+            if (msg != '')
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(msg)));
 
-
-            if(mounted){
-              setState((){
+            if (mounted) {
+              setState(() {
                 this._isLoading = false;
               });
             }
-
-          }else{
-            print("Not Validated");
+          } else {
+            print('Not Validated');
           }
         },
       ),
@@ -169,88 +173,102 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget logInSocialMediaIntegrationButtons() {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(30.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-              onTap: ()async{
-                print("Google Pressed.");
-                if(mounted){
-                  setState((){
-                    this._isLoading = true;
-                  });
-                }
+            onTap: ()async{
+              print('Google Pressed');
+              if (mounted) {
+                setState(() {
+                  this._isLoading = true;
+                });
+              }
 
-                final GoogleSignInResults _googleSignInResults = await this._googleAuthentication.signInWithGoogle();
+              final GoogleSignInResults _googleSignInResults =
+              await this._googleAuthentication.signInWithGoogle();
 
-                String msg = '';
-                if(_googleSignInResults == GoogleSignInResults.SignInCompleted){
-                  msg = 'Sign In completed';
-                } else if(_googleSignInResults == GoogleSignInResults.SignInNotCompleted){
-                  msg = 'Sign In not completed';
-                } else if(_googleSignInResults == GoogleSignInResults.AlreadySignedIn){
-                  msg = 'Already Sign In';
-                } else {
-                  msg = 'Unexpected Error happened';
-                }
+              String msg = '';
 
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+              if (_googleSignInResults == GoogleSignInResults.SignInCompleted) {
+                msg = 'Sign In Completed';
+              } else if (_googleSignInResults ==
+                  GoogleSignInResults.SignInNotCompleted)
+                msg = 'Sign In not Completed';
+              else if (_googleSignInResults ==
+                  GoogleSignInResults.AlreadySignedIn)
+                msg = 'Already Google SignedIn';
+              else
+                msg = 'Unexpected Error Happen';
 
-                if(_googleSignInResults == GoogleSignInResults.SignInCompleted){
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
-                          (route) => false);
-                }
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(msg)));
 
+              if (_googleSignInResults == GoogleSignInResults.SignInCompleted)
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
+                        (route) => false);
 
-                if(mounted){
-                  setState((){
-                    this._isLoading = false;
-                  });
-                }
-              },
-              child: Image.asset('assets/images/google.png', width: 64.0,)),
+              if (mounted) {
+                setState(() {
+                  this._isLoading = false;
+                });
+              }
+            },
+            child: Image.asset(
+              'assets/images/google.png',
+              width: 50.0,
+            ),
+          ),
+          SizedBox(
+            width: 80.0,
+          ),
           GestureDetector(
-              onTap: () async{
-                print("Facebook Pressed.");
+            onTap: ()async{
+              print('Facebook Pressed');
 
-                if(mounted){
-                  setState((){
-                    this._isLoading = true;
-                  });
-                }
+              if (mounted) {
+                setState(() {
+                  this._isLoading = true;
+                });
+              }
 
-                final FBSignInResults _fbSignInResults = await this._facebookAuthentication.facebookLogIn();
+              final FBSignInResults _fbSignInResults =
+              await this._facebookAuthentication.facebookLogIn();
 
-                String msg = '';
-                if(_fbSignInResults == FBSignInResults.SignInCompleted){
-                  msg = 'Sign In completed';
-                } else if(_fbSignInResults == FBSignInResults.SignInNotCompleted){
-                  msg = 'Sign In not completed';
-                } else if(_fbSignInResults == FBSignInResults.AlreadySignedIn){
-                  msg = 'Already Facebook SignIn';
-                } else {
-                  msg = 'Unexpected Error happened';
-                }
+              String msg = '';
 
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+              if (_fbSignInResults == FBSignInResults.SignInCompleted) {
+                msg = 'Sign In Completed';
+              } else if (_fbSignInResults == FBSignInResults.SignInNotCompleted)
+                msg = 'Sign In not Completed';
+              else if (_fbSignInResults == FBSignInResults.AlreadySignedIn)
+                msg = 'Already Google SignedIn';
+              else
+                msg = 'Unexpected Error Happen';
 
-                if(_fbSignInResults == FBSignInResults.SignInCompleted){
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
-                          (route) => false);
-                }
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(msg)));
 
-                if(mounted){
-                  setState((){
-                    this._isLoading = false;
-                  });
-                }
-              },
-              child: Image.asset('assets/images/fbook.png', width: 64.0,)),
+              if (_fbSignInResults == FBSignInResults.SignInCompleted)
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => TakePrimaryUserData()),
+                        (route) => false);
+
+              if (mounted) {
+                setState(() {
+                  this._isLoading = false;
+                });
+              }
+            },
+            child: Image.asset(
+              'assets/images/fbook.png',
+              width: 50.0,
+            ),
+          ),
         ],
       ),
     );

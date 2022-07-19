@@ -20,7 +20,7 @@ class AboutSection extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'About SACI Chats',
+                  'About Generation',
                   style: TextStyle(color: Colors.white, fontSize: 20.0),
                 ),
               ),
@@ -31,7 +31,7 @@ class AboutSection extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "A Private, Secure, End-to-End Encrypted Messaging app that helps you to connect with your connections without any Ads, promotion. No other third party person, organization, or even saci chats can't read your messages. Nobody can't take screenshot or can't do screen recording of this app.",
+                  "A Private, Secure, End-to-End Encrypted Messaging app that helps you to connect with your connections without any Ads, promotion. No other third party person, organization, or even Generation Team can't read your messages. Nobody can't take screenshot or can't do screen recording of this app.",
                   textAlign: TextAlign.justify,
                   style: TextStyle(color: Colors.white70, fontSize: 16.0),
                 ),
@@ -73,18 +73,18 @@ class AboutSection extends StatelessWidget {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //       bottom: 20.0, left: 20.0, right: 20.0, top: 50.0),
-            //   child: Align(
-            //     alignment: Alignment.centerRight,
-            //     child: Text(
-            //       'Creator\nSamarpan Dasgupta',
-            //       textAlign: TextAlign.center,
-            //       style: TextStyle(color: Colors.lightBlue, fontSize: 18.0),
-            //     ),
-            //   ),
-            // ),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: 20.0, left: 20.0, right: 20.0, top: 50.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'Creator\nSamarpan Dasgupta',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.lightBlue, fontSize: 18.0),
+                ),
+              ),
+            ),
           ],
         ),
       ),

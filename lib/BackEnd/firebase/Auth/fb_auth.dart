@@ -1,7 +1,7 @@
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:saci/Global_Uses/enum_generation.dart';
 
+import '../../../Global_Uses/enum_generation.dart';
 
 class FacebookAuthentication {
   final FacebookAuth _facebookLogin = FacebookAuth.instance;
@@ -16,9 +16,8 @@ class FacebookAuthentication {
           FacebookAuthProvider.credential(
               _fbLogInResult.accessToken!.token);
 
-          if (FirebaseAuth.instance.currentUser != null) {
+          if (FirebaseAuth.instance.currentUser != null)
             FirebaseAuth.instance.signOut();
-          }
 
           final UserCredential fbUser = await FirebaseAuth.instance
               .signInWithCredential(_oAuthCredential);
